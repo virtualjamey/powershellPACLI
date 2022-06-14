@@ -1,3 +1,12 @@
+<#
+    Permissions lookup
+
+    updateObjectProperties = Update account properties
+    createObject + updateObjectProperties = Add accounts (includes update permissions) and update account properties
+    store + createObject = Update account content
+
+#>
+
 # Imports required powershell module. This module is located in the same directory as this script and is named PoshPACLI.
 Import-Module -Name $PSScriptRoot\PoshPACLI -Force
 
@@ -39,13 +48,18 @@ foreach($safe in $safesToAdd){
     Add-PVSafeGWAccount -safe $safe.safeName -gwAccount PVWAGWAccounts 
 
     # Adds CPM
-    Add-PVSafeOwner -owner $safe.cpm -safe $safe.safeName -list <# List accounts #> -retrieve <# Retrieve accounts #> -usePassword <# use accounts #> -createObject <# Add accounts #> -store <# Add accounts #> -updateObjectProperties <# Update account properties #> -initiateCPMChange <# Initiate CPM account management operations #> -initiateCPMChangeWithManualPassword <# Specify next account content #> -renameObject <# Rename Accounts#> -delete <# Delete accounts#> -unlockObject <# Unlock accounts#> -viewAudit <# View audit logs #> -createFolder <# Create folder#> -deleteFolder <# Delete folder #> -validateSafecontent <# Content Validation #>  -eventsList <# Events #> -addEvents <# Events #> 
+    Add-PVSafeOwner -owner $safe.cpm -safe $safe.safeName -list <# List accounts #> -retrieve <# Retrieve accounts #> -usePassword <# use accounts #> -createObject <# Add account if used with updateObjectProperties OR Update account content if used with store but NOT updateObjectProperties #> -store <# See createObject notes  #> -updateObjectProperties <# See createObject notes #> -initiateCPMChange <# Initiate CPM account management operations #> -initiateCPMChangeWithManualPassword <# Specify next account content #> -renameObject <# Rename Accounts#> -delete <# Delete accounts#> -unlockObject <# Unlock accounts#> -viewAudit <# View audit logs #> -createFolder <# Create folder#> -deleteFolder <# Delete folder #> -validateSafecontent <# Content Validation #>  -eventsList <# Events #> -addEvents <# Events #> 
 
     # Role1
-    Add-PVSafeOwner -owner $safe.adminGroup -safe $safe.safeName -list <# List accounts #> -retrieve <# Retrieve accounts #> -usePassword <# use accounts #> -createObject <# Add accounts #> -store <# Add accounts #> -updateObjectProperties <# Update account properties #> -initiateCPMChange <# Initiate CPM account management operations #> -initiateCPMChangeWithManualPassword <# Specify next account content #> -renameObject <# Rename Accounts#> -delete <# Delete accounts#> -unlockObject <# Unlock accounts#> -viewAudit <# View audit logs #> -viewPermissions <# View Safe Members #>  -createFolder <# Create folder#> -deleteFolder <# Delete folder #> -administer <# Manage Safe#> -supervise <# Authorize account requests #> -manageOwners <# Manage Safe Members #> -accessNoConfirmation <# Access safe without confirmation #> -validateSafecontent <# Content Validation #>  -moveFrom <# Move accounts/folders #> -moveInto <# Move accounts/folders #> -eventsList <# Events #> -addEvents <# Events #> -supervise <# Authorize account requests #> -accessNoConfirmation <# Access safe without confirmation #>
+    Add-PVSafeOwner -owner $safe.adminGroup -safe $safe.safeName -usePassword <# use accounts #> -retrieve <# Retrieve accounts #> -list <# List accounts #> -createObject <# Add account if used with updateObjectProperties OR Update account content if used with store but NOT updateObjectProperties #> -store <# See createObject notes #> -updateObjectProperties <# See createObject notes #> -initiateCPMChange <# Initiate CPM account management operations #> -initiateCPMChangeWithManualPassword <# Specify next account content #> -renameObject <# Rename Accounts#> -delete <# Delete accounts#> -unlockObject <# Unlock accounts#> -viewAudit <# View audit logs #> -viewPermissions <# View Safe Members #>  -createFolder <# Create folder#> -deleteFolder <# Delete folder #> -administer <# Manage Safe#> -supervise <# Authorize account requests #> -manageOwners <# Manage Safe Members #> -accessNoConfirmation <# Access safe without confirmation #> -validateSafecontent <# Content Validation #>  -moveFrom <# Move accounts/folders #> -moveInto <# Move accounts/folders #> -eventsList <# Events #> -addEvents <# Events #> -supervise <# Authorize account requests #> -accessNoConfirmation <# Access safe without confirmation #>
 
     # Role 2
-    Add-PVSafeOwner -owner $safe.cpm -safe $safe.safeName -list <# List accounts #>  -initiateCPMChange <# Initiate CPM account management operations #> -unlockObject <# Unlock accounts#> -viewAudit <# View audit logs #> -viewPermissions <# View Safe Members #> -validateSafecontent <# Content Validation #>  -eventsList <# Events #> -addEvents <# Events #> 
+    Add-PVSafeOwner -owner $safe.role2 -safe $safe.safeName -list <# List accounts #>  -initiateCPMChange <# Initiate CPM account management operations #> -unlockObject <# Unlock accounts#> -viewAudit <# View audit logs #> -viewPermissions <# View Safe Members #> -validateSafecontent <# Content Validation #>  -eventsList <# Events #> -addEvents <# Events #> 
+
+    # Role 3
+    Add-PVSafeOwner -owner $safe.role3 -safe $safe.safeName -list <# List accounts #> -createObject <# Add account if used with updateObjectProperties OR Update account content if used with store but NOT updateObjectProperties #> -updateObjectProperties <# See createObject notes #> -initiateCPMChange <# Initiate CPM account management operations #> -renameObject <# Rename Accounts#> -delete <# Delete accounts#> -unlockObject <# Unlock accounts#> -administer <# Manage Safe#>  -manageOwners <# Manage Safe Members #> -backup <# Backup safe#> -viewAudit <# View audit logs #> -viewPermissions <# View Safe Members #> -validateSafecontent <# Content Validation #> -eventsList <# Events #> -addEvents <# Events #>
+
+
 }
 
 # Cleans up vault connection
