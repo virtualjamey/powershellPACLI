@@ -1,12 +1,3 @@
-<#
-    Permissions lookup
-
-    updateObjectProperties = Update account properties
-    createObject + updateObjectProperties = Add accounts (includes update permissions) and update account properties
-    store + createObject = Update account content
-
-#>
-
 # Imports required powershell module. This module is located in the same directory as this script and is named PoshPACLI.
 Import-Module -Name $PSScriptRoot\PoshPACLI -Force
 
