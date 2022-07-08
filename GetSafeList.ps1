@@ -24,5 +24,5 @@ Connect-PVVault -user $($creds.Username) -password $($creds.Password)
 
 $allSafes = Get-PVSafeList -location \
 
-$allSafes | Export-Csv "$PSScriptRoot\AllSafes.csv"
+$allSafes | Export-Csv "$PSScriptRoot\AllSafes.csv" -NoTypeInformation
 
