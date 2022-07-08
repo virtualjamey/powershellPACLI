@@ -13,9 +13,6 @@ Set-PVConfiguration -ClientPath $PSScriptRoot\PACLIBinaries\Pacli.exe
 # Ask the user for vault credentials
 $creds = Get-Credential -Message "Enter Vault Username and password"
 
-# Imports list of safes to onboard
-$allSafes = Get-PVSafeList -location \
-
 # Starts a pacli session
 Start-PVPacli -sessionID 5
 
@@ -25,5 +22,7 @@ New-PVVaultDefinition -vault "Dev" -address "IP Address"
 # Connects to vault using supplied credentials
 Connect-PVVault -user $($creds.Username) -password $($creds.Password)
 
-$allSafes = Export-Csv "$PSScriptRoot\AllSafes.csv"
+$allSafes = Get-PVSafeList -location \
+
+$allSafes | Export-Csv "$PSScriptRoot\AllSafes.csv"
 
