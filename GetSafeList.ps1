@@ -22,7 +22,9 @@ New-PVVaultDefinition -vault "Dev" -address "IP Address"
 # Connects to vault using supplied credentials
 Connect-PVVault -user $($creds.Username) -password $($creds.Password)
 
+# Gets list of safes
 $allSafes = Get-PVSafeList -location \
 
+# Exports list of safes to csv named AllSafes.csv in the same directory as the script.
 $allSafes | Export-Csv "$PSScriptRoot\AllSafes.csv" -NoTypeInformation
 
