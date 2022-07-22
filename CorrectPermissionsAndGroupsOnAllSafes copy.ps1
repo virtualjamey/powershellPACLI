@@ -49,6 +49,8 @@ $safesToIgnore = @(
 # FOR TESTING
 # Imports list of safes to onboard
 $safesToAddUsersTo = Import-Csv -Path "$PSScriptRoot\safesToAddUsersTo.csv"
+$safesToAddUsersTo = $safesToAddUsersTo | Where-Object -Filterscript {$_ -notmatch [String]::Join('|',$safesToIgnore)}
+
 
 # UNCOMMENT AFTER TESTING TO ENABLE ALL SAFES
 # Imports list of safes to onboard
